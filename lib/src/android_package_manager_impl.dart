@@ -521,5 +521,6 @@ class AndroidPackageManagerImpl extends AndroidPackageManager {
     if (installSourceInfo != null) {
       return installSourceInfo;
     }
+    return null;
   }
 }
