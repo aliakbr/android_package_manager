@@ -176,4 +176,8 @@ abstract class AndroidPackageManager {
     required int id,
     required VerificationCode verificationCode,
   }) => throw UnimplementedError();
+
+  Future<String> getInstallSourceInfo({
+    required String packageName
+  });
 }

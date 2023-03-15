@@ -507,4 +507,20 @@ class AndroidPackageManagerImpl extends AndroidPackageManager {
       },
     );
   }
+
+  @override
+  Future<String> getInstallSourceInfo({
+    required String packageName
+  }) async {
+    final installSourceInfo = await _channel.invokeMethod(
+      "getInstallSourceInfo",
+      {
+        "packageName": packageName,
+      },
+    );
+    if (installSourceInfo != null) {
+      print(installSourceInfo.toString());
+    }
+    return "";
+  }
 }
