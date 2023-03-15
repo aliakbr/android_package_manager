@@ -509,7 +509,7 @@ class AndroidPackageManagerImpl extends AndroidPackageManager {
   }
 
   @override
-  Future<String> getInstallSourceInfo({
+  Future<Map<String, String>?> getInstallSourceInfo({
     required String packageName
   }) async {
     final installSourceInfo = await _channel.invokeMethod(
@@ -519,8 +519,7 @@ class AndroidPackageManagerImpl extends AndroidPackageManager {
       },
     );
     if (installSourceInfo != null) {
-      print(installSourceInfo.toString());
+      return installSourceInfo;
     }
-    return "";
   }
 }
