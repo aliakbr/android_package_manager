@@ -43,6 +43,14 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
+  void _testSourceInstallInfo(String packageName) async {
+    final pm = AndroidPackageManager();
+
+    final sourceInfo = await pm.getInstallSourceInfo(packageName: packageName);
+
+    print(sourceInfo!["installingPackageName"].toString());
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -57,6 +65,9 @@ class _MainPageState extends State<MainPage> {
         ),
         itemBuilder: (_, index,) {
           final info = appInfo![index];
+
+          _testSourceInstallInfo(info.packageName!);
+
           return Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 12.0,
