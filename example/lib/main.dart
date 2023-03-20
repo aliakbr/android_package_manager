@@ -45,10 +45,8 @@ class _MainPageState extends State<MainPage> {
 
   void _testSourceInstallInfo(String packageName) async {
     final pm = AndroidPackageManager();
-
-    final sourceInfo = await pm.getInstallSourceInfo(packageName: packageName);
-
-    print(sourceInfo!["installingPackageName"].toString());
+    final sourceInfo = await pm.getApplicationEnabledSetting(packageName: packageName);
+    print('package name : ${packageName} enabledSEtting : $sourceInfo!');
   }
 
   @override
@@ -66,38 +64,42 @@ class _MainPageState extends State<MainPage> {
         itemBuilder: (_, index,) {
           final info = appInfo![index];
 
-          _testSourceInstallInfo(info.packageName!);
-
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 12.0,
-            ),
-            child: Card(
-              child: ListTile(
-                leading: SizedBox.square(
-                  dimension: 48.0,
-                  child: FutureBuilder<Uint8List?>(
-                    future: info.getAppIcon(),
-                    builder: (context, snapshot,) {
-                      if (snapshot.hasData) {
-                        final iconBytes = snapshot.data!;
-                        return Image.memory(
-                          iconBytes,
-                          fit: BoxFit.fill,
-                        );
-                      }
-                      if (snapshot.hasError) {
-                        return const Icon(Icons.error, color: Colors.red,);
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  ),
-                ),
-                title: Text(info.name ?? "No Name",),
-                subtitle: Text(info.packageName ?? "-",),
+          if (info.packageName!.contains('com.telkomsel')) {
+            _testSourceInstallInfo(info.packageName!);
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 12.0,
               ),
-            ),
-          );
+              child: Card(
+                child: ListTile(
+                  leading: SizedBox.square(
+                    dimension: 48.0,
+                    child: FutureBuilder<Uint8List?>(
+                      future: info.getAppIcon(),
+                      builder: (context, snapshot,) {
+                        if (snapshot.hasData) {
+                          final iconBytes = snapshot.data!;
+                          return Image.memory(
+                            iconBytes,
+                            fit: BoxFit.fill,
+                          );
+                        }
+                        if (snapshot.hasError) {
+                          return const Icon(Icons.error, color: Colors.red,);
+                        }
+                        return const SizedBox.shrink();
+                      },
+                    ),
+                  ),
+                  title: Text(info.name ?? "No Name",),
+                  subtitle: Text(info.packageName ?? "-",),
+                ),
+              ),
+            );
+          } else {
+            return Container();
+          }
+
         },
         itemCount: appInfo?.length ?? 0,
       ),

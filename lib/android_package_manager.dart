@@ -57,7 +57,7 @@ abstract class AndroidPackageManager {
     PermissionGroupInfoFlags? flags,
   });
 
-  Future<bool?> getApplicationEnabledSetting({required String packageName,});
+  Future<int?> getApplicationEnabledSetting({required String packageName,});
 
   Future<Uint8List?> getApplicationIcon({
     required String packageName,

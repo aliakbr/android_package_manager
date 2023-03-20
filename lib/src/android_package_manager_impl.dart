@@ -100,11 +100,11 @@ class AndroidPackageManagerImpl extends AndroidPackageManager {
     ).toList(growable: false,);
   }
 
-  @override
-  Future<bool?> getApplicationEnabledSetting({required String packageName,}) => _channel.invokeMethod<bool>(
-    "getApplicationEnabledSetting",
-    {"packageName": packageName,},
-  );
+  // @override
+  // Future<bool?> getApplicationEnabledSetting({required String packageName,}) => _channel.invokeMethod<bool>(
+  //   "getApplicationEnabledSetting",
+  //   {"packageName": packageName,},
+  // );
 
   @override
   Future<Uint8List?> getApplicationIcon({
@@ -520,6 +520,20 @@ class AndroidPackageManagerImpl extends AndroidPackageManager {
     );
     if (installSourceInfo != null) {
       return installSourceInfo;
+    }
+    return null;
+  }
+
+  @override
+  Future<int?> getApplicationEnabledSetting({required String packageName,}) async {
+    final enabledSetting = await _channel.invokeMethod(
+      "getApplicationEnabledSetting",
+      {
+        "packageName": packageName,
+      },
+    );
+    if (enabledSetting != null) {
+      return enabledSetting;
     }
     return null;
   }
