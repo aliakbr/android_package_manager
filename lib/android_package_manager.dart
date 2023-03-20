@@ -180,4 +180,6 @@ abstract class AndroidPackageManager {
   Future<Map<Object?, Object?>?> getInstallSourceInfo({
     required String packageName
   });
+
+  Future<bool?> canRequestPackageInstalls();
 }

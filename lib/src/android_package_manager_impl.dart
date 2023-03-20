@@ -537,4 +537,9 @@ class AndroidPackageManagerImpl extends AndroidPackageManager {
     }
     return null;
   }
+
+  @override
+  Future<bool?> canRequestPackageInstalls() => _channel.invokeMethod<bool>(
+    "canRequestPackageInstalls"
+  );
 }
